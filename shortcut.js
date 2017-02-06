@@ -3,7 +3,7 @@ log("Facebook SRT/contentscripts.......");
 chrome.runtime.onMessage.addListener(	
   function(request, sender, sendResponse) {  	
 		if("COMBINATION_1" === request.combination) {
-			log(request.combination);
+			COMBINATION_1();			
 		} else if ("COMBINATION_2" === request.combination) {
 			COMBINATION_2();
 		} else if ("COMBINATION_3" === request.combination) {
@@ -17,7 +17,68 @@ chrome.runtime.onMessage.addListener(
 		}    
   });
 
+function selectOption(radioBtnName) {
+	//log("selectOption....");
+	var radios = document.getElementsByTagName('input');
+    for (i = 0; i < radios.length; i++) {
+        if (radios[i].type == 'radio' ) {
+            
+            if(radioBtnName === radios[i].value) {	            	
+            	document.getElementById(radios[i].id).checked = false;
+            	document.getElementById(radios[i].id).click();
+            }
+        }
+    }//&& radios[i].checked
+}
+
 function COMBINATION_1() {
+	log("Executing--->COMBINATION_1");
+	selectOption("Low Risk - misleading, fraudulent, deceptive or offensive");
+	setTimeout(function(){
+		selectOption("Non products");
+	}, 200);
+	setTimeout(function(){
+		selectOption("Others");
+	}, 200);
+	document.getElementsByTagName('button')[0].click(); //breakpoint.
+}
+function COMBINATION_2() {
+	log("Executing--->COMBINATION_2");
+	selectOption("Weapons, ammunition, or explosives");
+	setTimeout(function(){
+		selectOption("All components");
+	}, 200);
+	log("Confirm");
+	document.getElementsByTagName('button')[0].click(); //breakpoint.
+}
+
+function COMBINATION_3() {
+	log("Executing--->COMBINATION_3");
+	selectOption("Adult health products");
+	setTimeout(function(){
+		selectOption("All components");
+	}, 200);	
+	document.getElementsByTagName('button')[0].click(); //breakpoint.
+}
+
+function COMBINATION_4() {
+	log("Executing--->COMBINATION_4");
+}
+
+function COMBINATION_5() {
+	log("Executing--->COMBINATION_5");
+}
+
+function COMBINATION_6() {
+	log("Executing--->COMBINATION_6");
+}
+
+function log(message) {
+	//alert(message);
+	console.log(message);
+}
+
+/*function COMBINATION_1() {
 	log("Executing--->COMBINATION_1");
 	var radios = document.getElementsByTagName('input');
 	    for (i = 0; i < radios.length; i++) {
@@ -31,7 +92,7 @@ function COMBINATION_1() {
 	    }//&& radios[i].checked
 
 	   
-	   setTimeout(function(){ 
+	   setTimeout(function(){
 
         log("2");
 
@@ -66,30 +127,4 @@ function COMBINATION_1() {
 	    }//&& radios[i].checked
 	    log("completed");
     }, 200);
-}
-
-function COMBINATION_2() {
-	log("Executing--->COMBINATION_2");
-}
-
-function COMBINATION_3() {
-	log("Executing--->COMBINATION_3");
-}
-
-function COMBINATION_4() {
-	log("Executing--->COMBINATION_4");
-}
-
-function COMBINATION_5() {
-	log("Executing--->COMBINATION_5");
-}
-
-function COMBINATION_6() {
-	log("Executing--->COMBINATION_6");
-}
-
-function log(message) {
-	//alert(message);
-	console.log(message);
-}
-
+}*/
