@@ -1,7 +1,7 @@
 log("Facebook SRT/contentscripts.......");
 
 chrome.runtime.onMessage.addListener(	
-  function(request, sender, sendResponse) {  	
+  function(request, sender, sendResponse) {
 		if("COMBINATION_1" === request.combination) {
 			COMBINATION_1();			
 		} else if ("COMBINATION_2" === request.combination) {
@@ -25,10 +25,22 @@ function selectOption(radioBtnName) {
             
             if(radioBtnName === radios[i].value) {	            	
             	document.getElementById(radios[i].id).checked = false;
-            	document.getElementById(radios[i].id).click();
+            	log("Selected option::" + radios[i].value);
+            	document.getElementById(radios[i].id).click();            	
             }
         }
     }//&& radios[i].checked
+}
+
+function clickEnter() {
+	var buttons = document.getElementsByTagName('button');	
+	for(i=0; i<buttons.length; i++) {
+		if(buttons[i].innerHTML.includes("Continue [Enter]")) {
+			buttons[i].click();			 //breakPoint
+			log("Tagging Completed....................................!!!");
+			break;		
+		}    	
+    }
 }
 
 function COMBINATION_1() {
@@ -40,91 +52,83 @@ function COMBINATION_1() {
 	setTimeout(function(){
 		selectOption("Others");
 	}, 200);
-	document.getElementsByTagName('button')[0].click(); //breakpoint.
+	setTimeout(function(){
+		clickEnter();
+    }, 200);
 }
+
 function COMBINATION_2() {
 	log("Executing--->COMBINATION_2");
+	//{"tags":["rep_weaponsale","comp_prod_all"]}
 	selectOption("Weapons, ammunition, or explosives");
 	setTimeout(function(){
 		selectOption("All components");
 	}, 200);
-	log("Confirm");
-	document.getElementsByTagName('button')[0].click(); //breakpoint.
+	
+	clickEnter();
 }
 
 function COMBINATION_3() {
 	log("Executing--->COMBINATION_3");
+	//{"tags":["rep_adulthealth","comp_prod_all"]}
 	selectOption("Adult health products");
 	setTimeout(function(){
 		selectOption("All components");
-	}, 200);	
-	document.getElementsByTagName('button')[0].click(); //breakpoint.
+	}, 200);
+
+	clickEnter();
 }
 
 function COMBINATION_4() {
 	log("Executing--->COMBINATION_4");
+	//{"tags":["rep_tobaccosale","comp_prod_all"]}
+	selectOption("Tobacco products and related paraphernalia");
+	setTimeout(function(){
+		selectOption("All components");
+	}, 200);
+
+	clickEnter();
 }
 
 function COMBINATION_5() {
 	log("Executing--->COMBINATION_5");
+	//{"tags":["lowquality","rep_nonproduct","pil_nonproduct_promotions","pil_nonproduct_tickets_promotion"]}
+	//Low Risk - misleading, fraudulent, deceptive or offensive / Non products / Tickets, Coupons or Promotions / Promotion
+	selectOption("Low Risk - misleading, fraudulent, deceptive or offensive");
+	setTimeout(function(){
+		selectOption("Non products");
+	}, 200);
+	setTimeout(function(){
+		selectOption("Tickets, Coupons or Promotions");
+	}, 200);
+	setTimeout(function(){
+		selectOption("Promotion");
+	}, 200);
+	setTimeout(function(){
+		clickEnter();
+    }, 200);
 }
 
 function COMBINATION_6() {
 	log("Executing--->COMBINATION_6");
+	//{"tags":["lowquality","rep_nonproduct","pil_nonproduct_services","pil_nonproduct_services_others"]}
+	//Low Risk - misleading, fraudulent, deceptive or offensive / Non products / Services / Others
+	selectOption("Low Risk - misleading, fraudulent, deceptive or offensive");
+	setTimeout(function(){
+		selectOption("Non products");
+	}, 200);
+	setTimeout(function(){
+		selectOption("Services");
+	}, 200);
+	setTimeout(function(){
+		selectOption("Others");
+	}, 200);
+	setTimeout(function(){
+		clickEnter();
+    }, 200);
 }
 
 function log(message) {
 	//alert(message);
 	console.log(message);
 }
-
-/*function COMBINATION_1() {
-	log("Executing--->COMBINATION_1");
-	var radios = document.getElementsByTagName('input');
-	    for (i = 0; i < radios.length; i++) {
-	        if (radios[i].type == 'radio' ) {
-	            
-	            if("Low Risk - misleading, fraudulent, deceptive or offensive" === radios[i].value) {	            	
-	            	document.getElementById(radios[i].id).checked = false;
-	            	document.getElementById(radios[i].id).click();
-	            }
-	        }
-	    }//&& radios[i].checked
-
-	   
-	   setTimeout(function(){
-
-        log("2");
-
-        var radios = document.getElementsByTagName('input');
-	    for (i = 0; i < radios.length; i++) {
-	        if (radios[i].type == 'radio' ) {
-	            
-	            if("Non products" === radios[i].value) {	            	
-	            	document.getElementById(radios[i].id).checked = false;
-	            	document.getElementById(radios[i].id).click();
-	            }
-	        }
-	    }//&& radios[i].checked
-
-    }, 200);
-
-	//3rd Option
-    setTimeout(function(){ 
-
-        log("3");
-
-        var radios = document.getElementsByTagName('input');
-	    for (i = 0; i < radios.length; i++) {
-	        if (radios[i].type == 'radio' ) {
-	            
-	            if("Others" === radios[i].value) {	            	
-	            	document.getElementById(radios[i].id).checked = false;
-	            	document.getElementById(radios[i].id).click();
-	            	document.getElementsByTagName('button')[0].click(); //breakpoint.
-	            }
-	        }
-	    }//&& radios[i].checked
-	    log("completed");
-    }, 200);
-}*/
